@@ -134,35 +134,53 @@
         #projects {
             margin-bottom: 36px;
         }
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 18px;
-        }
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+    perspective: 1200px;
+    perspective-origin: center 30%;
+}
+.project-card {
+    position: relative;
+    background: radial-gradient(circle at top left, rgba(79,140,255,0.18), rgba(10,14,30,0.96));
+    border-radius: var(--radius-lg);
+    padding: 18px 18px 16px;
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 8px 22px rgba(0,0,0,0.35);
+    overflow: hidden;
+    transform-style: preserve-3d;
+    transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        border-color var(--transition-fast),
+        background 0.35s ease-out;
+    cursor: default;
+}
 
-        .project-card {
-            position: relative;
-            background: radial-gradient(circle at top left, rgba(79,140,255,0.18), rgba(10,14,30,0.96));
-            border-radius: var(--radius-lg);
-            padding: 18px 18px 16px;
-            border: 1px solid rgba(255,255,255,0.06);
-            box-shadow: 0 8px 22px rgba(0,0,0,0.35);
-            overflow: hidden;
-            transition:
-                transform var(--transition-fast),
-                box-shadow var(--transition-fast),
-                border-color var(--transition-fast),
-                background 0.35s ease-out;
-            cursor: default;
-        }
+/* glassy highlight layer */
+.project-card::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    background:
+        radial-gradient(circle at 0 0, rgba(255,255,255,0.35), transparent 55%);
+    mix-blend-mode: screen;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.28s ease-out;
+}
 
-        .project-card:hover {
-            transform: translateY(-10px) scale(1.01);
-            box-shadow: 0 22px 40px rgba(0,0,0,0.6);
-            border-color: rgba(79,140,255,0.7);
-            background: radial-gradient(circle at top left, rgba(79,140,255,0.26), rgba(10,14,30,0.98));
-        }
+.project-card.is-tilting::before {
+    opacity: 1;
+}
 
+/* no transform here – JS will handle tilt */
+.project-card:hover {
+    box-shadow: 0 22px 40px rgba(0,0,0,0.6);
+    border-color: rgba(79,140,255,0.7);
+    background: radial-gradient(circle at top left, rgba(79,140,255,0.26), rgba(10,14,30,0.98));
+}
         .project-tag {
             display: inline-flex;
             align-items: center;
@@ -436,5 +454,48 @@
         </div>
     </section>
 </div>
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+    const cards = document.querySelectorAll(".project-card");
+    const rotateLimit = 10;   // max degrees
+    const lift = -4;          // slight lift in px
+    const scale = 1.01;       // tiny zoom
+
+    cards.forEach(card => {
+        let bounds = card.getBoundingClientRect();
+
+        card.addEventListener("mouseenter", () => {
+            bounds = card.getBoundingClientRect(); // refresh in case of resize
+            card.classList.add("is-tilting");
+        });
+
+        card.addEventListener("mousemove", (e) => {
+            const x = e.clientX - bounds.left;
+            const y = e.clientY - bounds.top;
+
+            const midX = bounds.width / 2;
+            const midY = bounds.height / 2;
+
+            const normX = (x - midX) / midX;   // -1 to 1
+            const normY = (y - midY) / midY;   // -1 to 1
+
+            const rotateY = normX * rotateLimit;
+            const rotateX = -normY * rotateLimit;
+
+            card.style.transform = `
+                translateY(${lift}px)
+                scale(${scale})
+                rotateX(${rotateX}deg)
+                rotateY(${rotateY}deg)
+            `;
+        });
+
+        card.addEventListener("mouseleave", () => {
+            card.style.transform = "";
+            card.classList.remove("is-tilting");
+        });
+    });
+});
+</script>
 </body>
 </html>
