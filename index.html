@@ -457,9 +457,9 @@
     <script>
 document.addEventListener("DOMContentLoaded", () => {
     const cards = document.querySelectorAll(".project-card");
-    const rotateLimit = 10;   // max degrees
-    const lift = -4;          // slight lift in px
-    const scale = 1.01;       // tiny zoom
+    const rotateLimit = 4;   // max degrees
+    const lift = -2;          // slight lift in px
+    const scale = 1.005;       // tiny zoom
 
     cards.forEach(card => {
         let bounds = card.getBoundingClientRect();
