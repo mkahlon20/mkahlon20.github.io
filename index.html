@@ -5,52 +5,458 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mohitveer Kahlon - Research Portfolio</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 40px; padding: 0; background-color: #f4f4f4; }
-        .container { max-width: 900px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1); }
-        h1, h2 { text-align: center; }
-        p { line-height: 1.6; }
-        ul { list-style-type: square; }
-        a { color: blue; text-decoration: none; }
+        :root {
+            --bg: #0b1020;
+            --card-bg: #141a2a;
+            --accent: #4f8cff;
+            --accent-soft: rgba(79, 140, 255, 0.18);
+            --text-main: #f5f7ff;
+            --text-muted: #b0b5c8;
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --radius-lg: 18px;
+            --radius-xl: 24px;
+            --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.45);
+            --transition-fast: 0.22s ease-out;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+            background: radial-gradient(circle at top left, #1c233a 0, #050814 55%, #02030a 100%);
+            color: var(--text-main);
+            padding: 32px 16px 60px;
+        }
+
+        .container {
+            max-width: 1040px;
+            margin: 0 auto;
+            background: linear-gradient(145deg, rgba(15,20,40,0.96), rgba(8,12,26,0.98));
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-soft);
+            padding: 32px 28px 40px;
+            border: 1px solid var(--border-subtle);
+            backdrop-filter: blur(18px);
+        }
+
+        @media (min-width: 900px) {
+            .container {
+                padding: 40px 44px 52px;
+            }
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Top header */
+        .top-header {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 32px;
+        }
+
+        .name-title {
+            font-size: 1.95rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-weight: 750;
+        }
+
+        .subtitle-line {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .pill {
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: rgba(79, 140, 255, 0.12);
+            border: 1px solid rgba(79, 140, 255, 0.4);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--accent);
+        }
+
+        .summary {
+            margin-top: 4px;
+            color: var(--text-muted);
+            font-size: 0.98rem;
+            line-height: 1.6;
+            max-width: 640px;
+        }
+
+        hr.section-divider {
+            border: none;
+            border-top: 1px solid var(--border-subtle);
+            margin: 22px 0 26px;
+        }
+
+        /* Section titles */
+        .section-heading {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .section-heading h2 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            font-weight: 650;
+            color: var(--text-muted);
+        }
+
+        .section-heading .bar {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--accent-soft), rgba(255,255,255,0));
+        }
+
+        /* Projects section */
+        #projects {
+            margin-bottom: 36px;
+        }
+
+        .projects-name-label {
+            font-weight: 800;
+            font-size: 1.4rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+            margin-left: 6%;
+        }
+
+        @media (max-width: 700px) {
+            .projects-name-label {
+                margin-left: 2%;
+                font-size: 1.1rem;
+            }
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+        }
+
+        .project-card {
+            position: relative;
+            background: radial-gradient(circle at top left, rgba(79,140,255,0.18), rgba(10,14,30,0.96));
+            border-radius: var(--radius-lg);
+            padding: 18px 18px 16px;
+            border: 1px solid rgba(255,255,255,0.06);
+            box-shadow: 0 8px 22px rgba(0,0,0,0.35);
+            overflow: hidden;
+            transition:
+                transform var(--transition-fast),
+                box-shadow var(--transition-fast),
+                border-color var(--transition-fast),
+                background 0.35s ease-out;
+            cursor: default;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.01);
+            box-shadow: 0 22px 40px rgba(0,0,0,0.6);
+            border-color: rgba(79,140,255,0.7);
+            background: radial-gradient(circle at top left, rgba(79,140,255,0.26), rgba(10,14,30,0.98));
+        }
+
+        .project-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .project-tag-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: var(--accent);
+            box-shadow: 0 0 0 4px rgba(79,140,255,0.3);
+        }
+
+        .project-title {
+            font-size: 1.02rem;
+            font-weight: 650;
+            margin-bottom: 6px;
+        }
+
+        .project-org {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .project-body {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .project-body ul {
+            list-style: square;
+            padding-left: 18px;
+        }
+
+        .project-body li + li {
+            margin-top: 4px;
+        }
+
+        .project-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+            font-size: 0.86rem;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 11px;
+            border-radius: 999px;
+            border: 1px solid rgba(79,140,255,0.7);
+            background: rgba(79,140,255,0.14);
+            text-decoration: none;
+            color: var(--accent);
+            font-size: 0.82rem;
+            font-weight: 500;
+            transition:
+                background var(--transition-fast),
+                border-color var(--transition-fast),
+                transform var(--transition-fast);
+        }
+
+        .project-card:hover .project-link {
+            background: rgba(79,140,255,0.22);
+            transform: translateY(-1px);
+        }
+
+        .project-link span {
+            font-size: 1rem;
+        }
+
+        /* Skills + Contact split */
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+            gap: 18px;
+        }
+
+        @media (max-width: 800px) {
+            .bottom-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: radial-gradient(circle at top left, rgba(255,255,255,0.05), rgba(8,10,22,0.96));
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-subtle);
+            padding: 16px 18px 18px;
+        }
+
+        .card h3 {
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .skills-list {
+            list-style: none;
+            display: grid;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        .skills-list strong {
+            font-weight: 600;
+        }
+
+        .contact-list {
+            list-style: none;
+            display: grid;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .contact-label {
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            margin-bottom: 2px;
+        }
+
+        .contact-item a {
+            word-break: break-all;
+        }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>Mohitveer Kahlon</h1>
-    <p>Computational Biologist | Bioinformatics Researcher</p>
-    <p>Experience in <strong>spatial omics, cancer biology, and machine learning for biomedical data analysis.</strong></p>
+    <!-- Top summary header -->
+    <header class="top-header">
+        <div class="name-title">Mohitveer Kahlon</div>
+        <div class="subtitle-line">
+            <span>Computational Biologist · Bioinformatics Researcher</span>
+            <span class="pill">Spatial Omics · Cancer Biology · ML</span>
+        </div>
+        <p class="summary">
+            Experience in spatial omics, cancer biology, and machine learning for biomedical data analysis, integrating wet-lab experimental work with
+            computational pipelines for image- and sequencing-based datasets.
+        </p>
+    </header>
 
-    <h2>Research Experience</h2>
+    <hr class="section-divider">
 
-    <h3>Shmulevich Lab - ISB</h3>
-    <p><strong>DBiT-seq Image Processing & Spatial Omics</strong></p>
-    <ul>
-        <li>Developed <strong>image processing workflows</strong> for analyzing melanoma tissue using <strong>DBiT-seq</strong>.</li>
-        <li>Mapped flowcell models to tissue samples using <strong>QuPath & ImageJ</strong>.</li>
-        <li>Designed <strong>heatmaps</strong> for gene activity visualization with <strong>WSInfer</strong>.</li>
-        <li><a href="DBiT_seq_Spatial_Omics.pdf">View Presentation</a></li>
-    </ul>
+    <!-- Projects / Research tiles -->
+    <section id="projects">
+        <div class="section-heading">
+            <h2>Projects & Research</h2>
+            <div class="bar"></div>
+        </div>
 
-    <h3>Fred Hutch - Nelson Lab</h3>
-    <p><strong>Disrupting CXCL12-CD26/CXCR4,7 in Prostate Cancer</strong></p>
-    <ul>
-        <li>Investigated <strong>prostate cancer progression & androgen receptor pathways</strong>.</li>
-        <li>Conducted <strong>qRT-PCR, Western Blot, and immunocytochemistry</strong> assays.</li>
-        <li>Analyzed tumor microenvironment responses to supraphysiological androgens.</li>
-        <li><a href="CXCL12_CD26_CXCR4_Axis_Disruption.pdf">View Presentation</a></li>
-    </ul>
+        <!-- Name off-center above tiles -->
+        <div class="projects-name-label">
+            MOHITVEER KAHLON
+        </div>
 
-    <h2>Skills</h2>
-    <ul>
-        <li><strong>Bioinformatics:</strong> Spatial omics, single-cell ATAC-seq, RNA-seq analysis, Heatmapping</li>
-        <li><strong>Programming:</strong> Python, R, Jupyter Notebook, Scikit-learn, Matplotlib, WSInfer, Pandas, Machine Learning</li>
-        <li><strong>Lab Techniques:</strong> qRT-PCR, Western Blot, Immunocytochemistry, Extractions, Culturing, Harvesting, Incubation</li>
-    </ul>
+        <div class="projects-grid">
+            <!-- Project 1 -->
+            <article class="project-card">
+                <div class="project-tag">
+                    <span class="project-tag-dot"></span>
+                    <span>Spatial Omics · DBiT-seq</span>
+                </div>
+                <div class="project-title">DBiT-seq Image Processing & Spatial Omics</div>
+                <div class="project-org">Shmulevich Lab · Institute for Systems Biology (ISB)</div>
+                <div class="project-body">
+                    <ul>
+                        <li>Developed image processing workflows for melanoma tissue sections using DBiT-seq.</li>
+                        <li>Mapped flowcell models to tissue samples through QuPath and ImageJ registration.</li>
+                        <li>Generated high-resolution spatial heatmaps of gene activity using WSInfer.</li>
+                    </ul>
+                </div>
+                <div class="project-footer">
+                    <a class="project-link" href="DBiT_seq_Spatial_Omics.pdf" target="_blank" rel="noopener">
+                        <span>⟶</span> View presentation
+                    </a>
+                </div>
+            </article>
 
-    <h2>Contact</h2>
-    <p>LinkedIn: <a href="https://www.linkedin.com/in/mohitveer-kahlon">linkedin.com/in/mohitveer-kahlon</a></p>
-    <p>GitHub: <a href="https://github.com/mkahlon20">github.com/mkahlon20</a></p>
-    <p>Portfolio: <a href="https://mkahlon20.github.io/">mkahlon20.github.io</a></p>
-    <p>Email: <a href="mailto:mohitveer.kahlon@seattlecolleges.edu">mohitveer.kahlon@seattlecolleges.edu</a></p>
+            <!-- Project 2 -->
+            <article class="project-card">
+                <div class="project-tag">
+                    <span class="project-tag-dot"></span>
+                    <span>Cancer Biology · AR Pathways</span>
+                </div>
+                <div class="project-title">Disrupting CXCL12–CD26 / CXCR4,7 in Prostate Cancer</div>
+                <div class="project-org">Nelson Lab · Fred Hutchinson Cancer Center</div>
+                <div class="project-body">
+                    <ul>
+                        <li>Investigated prostate cancer progression and androgen receptor pathway signaling.</li>
+                        <li>Performed qRT-PCR, Western blot, and immunocytochemistry on prostate cancer models.</li>
+                        <li>Characterized tumor microenvironment responses to supraphysiological androgen exposure.</li>
+                    </ul>
+                </div>
+                <div class="project-footer">
+                    <a class="project-link" href="CXCL12_CD26_CXCR4_Axis_Disruption.pdf" target="_blank" rel="noopener">
+                        <span>⟶</span> View presentation
+                    </a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Skills + Contact -->
+    <section id="details">
+        <div class="section-heading">
+            <h2>Skills & Contact</h2>
+            <div class="bar"></div>
+        </div>
+
+        <div class="bottom-grid">
+            <!-- Skills card -->
+            <div class="card">
+                <h3>Skills</h3>
+                <ul class="skills-list">
+                    <li>
+                        <strong>Bioinformatics:</strong>
+                        Spatial omics, single-cell ATAC-seq, RNA-seq analysis, heatmapping
+                    </li>
+                    <li>
+                        <strong>Programming:</strong>
+                        Python, R, Jupyter Notebook, scikit-learn, Matplotlib, WSInfer, Pandas, machine learning
+                    </li>
+                    <li>
+                        <strong>Lab Techniques:</strong>
+                        qRT-PCR, Western blot, immunocytochemistry, extractions, culturing, harvesting, incubation
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Contact card -->
+            <div class="card">
+                <h3>Contact</h3>
+                <ul class="contact-list">
+                    <li class="contact-item">
+                        <div class="contact-label">LinkedIn</div>
+                        <a href="https://www.linkedin.com/in/mohitveer-kahlon" target="_blank" rel="noopener">
+                            linkedin.com/in/mohitveer-kahlon
+                        </a>
+                    </li>
+                    <li class="contact-item">
+                        <div class="contact-label">GitHub</div>
+                        <a href="https://github.com/mkahlon20" target="_blank" rel="noopener">
+                            github.com/mkahlon20
+                        </a>
+                    </li>
+                    <li class="contact-item">
+                        <div class="contact-label">Portfolio</div>
+                        <a href="https://mkahlon20.github.io/" target="_blank" rel="noopener">
+                            mkahlon20.github.io
+                        </a>
+                    </li>
+                    <li class="contact-item">
+                        <div class="contact-label">Email</div>
+                        <a href="mailto:mohitveer.kahlon@seattlecolleges.edu">
+                            mohitveer.kahlon@seattlecolleges.edu
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
 </div>
 </body>
 </html>
