@@ -70,10 +70,10 @@
             align-items: center;
             text-align: center;
             gap: 18px;
-            margin-bottom: 32px;
-            min-height: calc(100vh - 80px); /* fills first screen inside container */
+            
+            min-height: calc(100vh - 60px); /* fills first screen inside container */
             justify-content: center;
-            padding-bottom: 60px;
+            padding-bottom: 90px;
         }
 
         .name-title {
@@ -126,25 +126,30 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
-            margin-top: 14px:
+            gap: 16px;
+            margin-top: 18px:
         }
         .nav-button {
             background: none;
             border: none;
             padding: 0;
-            margin-top: 12px;
+            margin-top: 0;
             
-            font-size: 1rem;
+            font-size: 0.98rem;
             font-weight: 550;
-            letter-spacing: 0.28em;
+            letter-spacing: 0.30em;
             text-transform: uppercase;
             
             color: #2d4fa6;
             cursor: pointer;
-            transition: color 0.18s ease-out;
+            transition: color 0.2s ease-out;
 }
-
+        .nav-primary {
+            color: #cfd6ea;
+}
+        .nav-secondary {
+            color: #9aa4c4;
+}
         .nav-button:hover {
             color: #8cb0ff;
 }
@@ -379,8 +384,8 @@
             </a>
 
             <div class="hero-nav-buttons">
-                <a href="#projects" class="nav-button">Projects</a>
-                <a href="#contact" class="nav-button">Contact</a>
+                <a href="#projects" class="nav-button nav-primary">Projects</a>
+                <a href="#contact" class="nav-button nav-secondary">Contact</a>
             </div>
         </div>
     </header>
