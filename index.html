@@ -8,6 +8,7 @@
         html {
             scroll-behavior: smooth;
         }
+
         :root {
             --bg: #0b1020;
             --card-bg: #141a2a;
@@ -18,7 +19,7 @@
             --border-subtle: rgba(255, 255, 255, 0.06);
             --radius-lg: 18px;
             --radius-xl: 24px;
-            --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.45);
+            --shadow-soft: 0 18px 45px rgba(0,0,0,0.45);
             --transition-fast: 0.22s ease-out;
         }
 
@@ -41,14 +42,14 @@
             background: linear-gradient(145deg, rgba(15,20,40,0.96), rgba(8,12,26,0.98));
             border-radius: var(--radius-xl);
             box-shadow: var(--shadow-soft);
-            padding: 32px 28px 40px;
+            padding: 40px 24px 48px;
             border: 1px solid var(--border-subtle);
             backdrop-filter: blur(18px);
         }
 
         @media (min-width: 900px) {
             .container {
-                padding: 40px 44px 52px;
+                padding: 48px 44px 56px;
             }
         }
 
@@ -58,22 +59,94 @@
         }
 
         a:hover {
-            text-decoration: underline;
+            text-decoration: none;
         }
 
-        /* Top header */
+        /* HERO */
+
         .top-header {
             display: flex;
             flex-direction: column;
+            align-items: center;
+            text-align: center;
             gap: 14px;
             margin-bottom: 32px;
         }
 
         .name-title {
-            font-size: 1.95rem;
-            letter-spacing: 0.12em;
+            font-size: clamp(2.1rem, 5vw, 2.7rem);
+            letter-spacing: 0.18em;
             text-transform: uppercase;
             font-weight: 750;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            margin-top: 10px;
+        }
+
+        .hero-resume-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 22px;
+            border-radius: 999px;
+            border: 1px solid rgba(79,140,255,0.9);
+            background: rgba(79,140,255,0.16);
+            text-decoration: none;
+            color: var(--accent);
+            font-size: 0.92rem;
+            font-weight: 500;
+            transition:
+                background-color var(--transition-fast),
+                border-color var(--transition-fast),
+                transform var(--transition-fast),
+                box-shadow var(--transition-fast);
+            box-shadow: 0 8px 22px rgba(0,0,0,0.35);
+        }
+
+        .hero-resume-button span {
+            font-size: 1.1rem;
+        }
+
+        .hero-resume-button:hover {
+            background: rgba(79,140,255,0.26);
+            border-color: rgba(120,170,255,1);
+            transform: translateY(-1px);
+            box-shadow: 0 18px 35px rgba(0,0,0,0.55);
+        }
+
+        .hero-nav-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .nav-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 7px 18px;
+            border-radius: 10px;
+            border: 1px solid rgba(79,140,255,0.45);
+            background: rgba(20,35,70,0.9);
+            color: var(--text-main);
+            font-size: 0.88rem;
+            font-weight: 500;
+            transition:
+                background-color 0.22s ease,
+                border-color 0.22s ease,
+                transform 0.18s ease;
+        }
+
+        .nav-button:hover {
+            background: rgba(79,140,255,0.26);
+            border-color: rgba(120,170,255,1);
+            transform: translateY(-1px);
         }
 
         hr.section-divider {
@@ -83,6 +156,7 @@
         }
 
         /* Section titles */
+
         .section-heading {
             display: flex;
             align-items: baseline;
@@ -105,57 +179,59 @@
             background: linear-gradient(90deg, var(--accent-soft), rgba(255,255,255,0));
         }
 
-        /* Projects section */
+        /* Projects */
+
         #projects {
             margin-bottom: 36px;
         }
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 18px;
-    perspective: 1200px;
-    perspective-origin: center 30%;
-}
-.project-card {
-    position: relative;
-    background: radial-gradient(circle at top left, rgba(79,140,255,0.18), rgba(10,14,30,0.96));
-    border-radius: var(--radius-lg);
-    padding: 18px 18px 16px;
-    border: 1px solid rgba(255,255,255,0.06);
-    box-shadow: 0 8px 22px rgba(0,0,0,0.35);
-    overflow: hidden;
-    transform-style: preserve-3d;
-    transition:
-        transform var(--transition-fast),
-        box-shadow var(--transition-fast),
-        border-color var(--transition-fast),
-        background 0.35s ease-out;
-    cursor: default;
-}
 
-/* glassy highlight layer */
-.project-card::before {
-    content: "";
-    position: absolute;
-    inset: -1px;
-    background:
-        radial-gradient(circle at 0 0, rgba(255,255,255,0.35), transparent 55%);
-    mix-blend-mode: screen;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.28s ease-out;
-}
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+            perspective: 1200px;
+            perspective-origin: center 30%;
+        }
 
-.project-card.is-tilting::before {
-    opacity: 1;
-}
+        .project-card {
+            position: relative;
+            background: radial-gradient(circle at top left, rgba(79,140,255,0.18), rgba(10,14,30,0.96));
+            border-radius: var(--radius-lg);
+            padding: 18px 18px 16px;
+            border: 1px solid rgba(255,255,255,0.06);
+            box-shadow: 0 8px 22px rgba(0,0,0,0.35);
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transition:
+                transform var(--transition-fast),
+                box-shadow var(--transition-fast),
+                border-color var(--transition-fast),
+                background 0.35s ease-out;
+            cursor: default;
+        }
 
-/* no transform here – JS will handle tilt */
-.project-card:hover {
-    box-shadow: 0 22px 40px rgba(0,0,0,0.6);
-    border-color: rgba(79,140,255,0.7);
-    background: radial-gradient(circle at top left, rgba(79,140,255,0.26), rgba(10,14,30,0.98));
-}
+        .project-card::before {
+            content: "";
+            position: absolute;
+            inset: -1px;
+            background:
+                radial-gradient(circle at 0 0, rgba(255,255,255,0.35), transparent 55%);
+            mix-blend-mode: screen;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.28s ease-out;
+        }
+
+        .project-card.is-tilting::before {
+            opacity: 1;
+        }
+
+        .project-card:hover {
+            box-shadow: 0 22px 40px rgba(0,0,0,0.6);
+            border-color: rgba(79,140,255,0.7);
+            background: radial-gradient(circle at top left, rgba(79,140,255,0.26), rgba(10,14,30,0.98));
+        }
+
         .project-tag {
             display: inline-flex;
             align-items: center;
@@ -205,7 +281,7 @@
 
         .project-footer {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: center;
             margin-top: 8px;
             font-size: 0.86rem;
@@ -238,17 +314,10 @@
             font-size: 1rem;
         }
 
-        /* Skills + Contact split */
-        .bottom-grid {
-            display: grid;
-            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-            gap: 18px;
-        }
+        /* Contact */
 
-        @media (max-width: 800px) {
-            .bottom-grid {
-                grid-template-columns: 1fr;
-            }
+        #contact {
+            margin-top: 32px;
         }
 
         .card {
@@ -264,18 +333,6 @@
             letter-spacing: 0.16em;
             color: var(--text-muted);
             margin-bottom: 10px;
-        }
-
-        .skills-list {
-            list-style: none;
-            display: grid;
-            gap: 8px;
-            font-size: 0.9rem;
-            color: var(--text-main);
-        }
-
-        .skills-list strong {
-            font-weight: 600;
         }
 
         .contact-list {
@@ -296,29 +353,44 @@
         .contact-item a {
             word-break: break-all;
         }
+
+        .scroll-top {
+            margin-top: 22px;
+            text-align: center;
+        }
+
+        .scroll-top .nav-button {
+            padding-inline: 20px;
+        }
     </style>
 </head>
 <body>
+<div id="page-top"></div>
 <div class="container">
-    <!-- Top summary header -->
-    <header class="top-header">
-        <header class="top-header">
-    <div class="name-title">Mohitveer Kahlon</div>
 
-    <a href="resume.pdf" target="_blank" rel="noopener"
-       class="project-link" 
-       style="margin-top: 8px; align-self: flex-start;">
-        <span>⟶</span> Download Resume
-    </a>
-    <a href="#projects" class="project-link" 
-   style="margin-top: 12px; align-self: flex-start;">
-    <span>↓</span> View Projects
-</a>
-</header>
-    <!-- Projects / Research tiles -->
+    <!-- HERO -->
+    <header class="top-header">
+        <div class="name-title">Mohitveer Kahlon</div>
+
+        <div class="hero-actions">
+            <a href="resume.pdf" target="_blank" rel="noopener"
+               class="hero-resume-button">
+                <span>⟶</span> Download Resume
+            </a>
+
+            <div class="hero-nav-buttons">
+                <a href="#projects" class="nav-button">Projects</a>
+                <a href="#contact" class="nav-button">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <hr class="section-divider">
+
+    <!-- PROJECTS -->
     <section id="projects">
         <div class="section-heading">
-            <h2>Projects & Research</h2>
+            <h2>Projects</h2>
             <div class="bar"></div>
         </div>
 
@@ -369,60 +441,62 @@
         </div>
     </section>
 
-    <!-- Contact -->
-    <section id="details">
+    <!-- CONTACT -->
+    <section id="contact">
         <div class="section-heading">
             <h2>Contact</h2>
             <div class="bar"></div>
         </div>
 
-        <div class="bottom-grid">
+        <div class="card">
+            <h3>Contact</h3>
+            <ul class="contact-list">
+                <li class="contact-item">
+                    <div class="contact-label">LinkedIn</div>
+                    <a href="https://www.linkedin.com/in/mohitveer-kahlon" target="_blank" rel="noopener">
+                        linkedin.com/in/mohitveer-kahlon
+                    </a>
+                </li>
+                <li class="contact-item">
+                    <div class="contact-label">GitHub</div>
+                    <a href="https://github.com/mkahlon20" target="_blank" rel="noopener">
+                        github.com/mkahlon20
+                    </a>
+                </li>
+                <li class="contact-item">
+                    <div class="contact-label">Portfolio</div>
+                    <a href="https://mkahlon20.github.io/" target="_blank" rel="noopener">
+                        mkahlon20.github.io
+                    </a>
+                </li>
+                <li class="contact-item">
+                    <div class="contact-label">Email</div>
+                    <a href="mailto:mohitveer.kahlon@seattlecolleges.edu">
+                        mohitveer.kahlon@seattlecolleges.edu
+                    </a>
+                </li>
+            </ul>
+        </div>
 
-            <!-- Contact card -->
-            <div class="card">
-                <h3>Contact</h3>
-                <ul class="contact-list">
-                    <li class="contact-item">
-                        <div class="contact-label">LinkedIn</div>
-                        <a href="https://www.linkedin.com/in/mohitveer-kahlon" target="_blank" rel="noopener">
-                            linkedin.com/in/mohitveer-kahlon
-                        </a>
-                    </li>
-                    <li class="contact-item">
-                        <div class="contact-label">GitHub</div>
-                        <a href="https://github.com/mkahlon20" target="_blank" rel="noopener">
-                            github.com/mkahlon20
-                        </a>
-                    </li>
-                    <li class="contact-item">
-                        <div class="contact-label">Portfolio</div>
-                        <a href="https://mkahlon20.github.io/" target="_blank" rel="noopener">
-                            mkahlon20.github.io
-                        </a>
-                    </li>
-                    <li class="contact-item">
-                        <div class="contact-label">Email</div>
-                        <a href="mailto:mohitveer.kahlon@seattlecolleges.edu">
-                            mohitveer.kahlon@seattlecolleges.edu
-                        </a>
-                    </li>
-                </ul>
-            </div>
+        <div class="scroll-top">
+            <a href="#page-top" class="nav-button">Scroll to top</a>
         </div>
     </section>
+
 </div>
-    <script>
+
+<script>
 document.addEventListener("DOMContentLoaded", () => {
     const cards = document.querySelectorAll(".project-card");
-    const rotateLimit = 4;   // max degrees
-    const lift = -2;          // slight lift in px
-    const scale = 1.005;       // tiny zoom
+    const rotateLimit = 3;   // subtle tilt
+    const lift = -2;
+    const scale = 1.01;
 
     cards.forEach(card => {
         let bounds = card.getBoundingClientRect();
 
         card.addEventListener("mouseenter", () => {
-            bounds = card.getBoundingClientRect(); // refresh in case of resize
+            bounds = card.getBoundingClientRect();
             card.classList.add("is-tilting");
         });
 
@@ -433,8 +507,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const midX = bounds.width / 2;
             const midY = bounds.height / 2;
 
-            const normX = (x - midX) / midX;   // -1 to 1
-            const normY = (y - midY) / midY;   // -1 to 1
+            const normX = (x - midX) / midX;
+            const normY = (y - midY) / midY;
 
             const rotateY = normX * rotateLimit;
             const rotateX = -normY * rotateLimit;
