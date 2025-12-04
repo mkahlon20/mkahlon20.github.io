@@ -126,8 +126,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 50px;
-            margin-top: 100px:
+            gap: 70px;
+            margin-top: 32px:
         }
         .nav-button {
             background: none;
@@ -152,6 +152,22 @@
 }
         .nav-button:hover {
             color: #8cb0ff;
+}
+        .nav-button-line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;               /* space between line + word */
+            width: 100%;
+            margin-top: 0px;
+}
+
+        .nav-line {
+            flex: 1;
+            height: 1px;
+            background: rgba(255,255,255,0.08);  /* faint subtle line */
+            max-width: 120px;                    /* prevents it from stretching too wide */
+            border-radius: 2px;
 }
         
         hr.section-divider {
@@ -384,7 +400,11 @@
             </a>
 
             <div class="hero-nav-buttons">
-                <a href="#projects" class="nav-button nav-primary">Projects</a>
+                <div class="nav-button-line">
+    <span class="nav-line"></span>
+    <a href="#projects" class="nav-button nav-primary">Projects</a>
+    <span class="nav-line"></span>
+</div>
                 <a href="#contact" class="nav-button nav-secondary">Contact</a>
             </div>
         </div>
